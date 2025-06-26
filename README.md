@@ -11,6 +11,8 @@ A comprehensive real-time monitoring and traceability platform for Paraguay's ag
 ✅ **Complete Web Dashboard** with all pages functional  
 ✅ **Role-based Authentication** system  
 ✅ **PostgreSQL Database** with sample data  
+✅ **Advanced Analytics** with Grafana dashboards  
+✅ **Database Administration** with pgAdmin interface  
 
 ## 🎯 Features
 
@@ -47,6 +49,14 @@ A comprehensive real-time monitoring and traceability platform for Paraguay's ag
 - **System health monitoring**
 - **Quick action buttons**
 
+### 📊 **Advanced Analytics (Grafana)**
+- **Comprehensive monitoring dashboards** with real-time data visualization
+- **Silo Monitoring Dashboard**: Temperature/humidity trends, volume patterns, capacity gauges
+- **Alerts Analytics Dashboard**: Alert frequency, severity analysis, resolution tracking
+- **Logistics Analytics Dashboard**: Shipment performance, route efficiency, delivery metrics
+- **Historical data analysis** with customizable time ranges
+- **Automated refresh** every 5-30 seconds for live monitoring
+
 ## 🏗️ Architecture
 
 ```
@@ -55,10 +65,14 @@ A comprehensive real-time monitoring and traceability platform for Paraguay's ag
 [Python asyncio]   [SQLAlchemy]         [Sample Data]
        ↓               ↓                       ↓
    [Live Data]    [REST API]          [5 Paraguay Silos]
-                      ↓
-              [React Frontend]
-                      ↓
-           [Real-time Dashboard]
+                      ↓                       ↓
+              [React Frontend]          [pgAdmin Interface]
+                      ↓                       ↓
+           [Real-time Dashboard]      [Database Management]
+                                              ↓
+                                      [Grafana Analytics]
+                                              ↓
+                                   [Advanced Monitoring]
 ```
 
 ## 🛠️ Tech Stack
@@ -84,6 +98,11 @@ A comprehensive real-time monitoring and traceability platform for Paraguay's ag
 - **Python asyncio** - Async simulation
 - **Realistic data generation** - Day/night cycles, random events
 - **HTTP requests** - Real API integration
+
+### Analytics & Administration
+- **Grafana** - Advanced analytics and monitoring dashboards
+- **pgAdmin** - Web-based PostgreSQL database administration
+- **Pre-configured dashboards** - Silo monitoring, alerts, logistics analytics
 
 ### Infrastructure
 - **Docker** - Containerization
@@ -162,11 +181,15 @@ docker-compose up --build -d
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 - **API Documentation**: http://localhost:8000/redoc
+- **Database Admin (pgAdmin)**: http://localhost:5050
+- **Analytics & Monitoring (Grafana)**: http://localhost:3001
 
 4. **Login with default credentials:**
 - **Admin**: `admin@agrotrack.com` / `admin123`
 - **Operator**: `operator@agrotrack.com` / `operator123`
 - **Logistics**: `logistics@agrotrack.com` / `logistics123`
+- **Database Admin (pgAdmin)**: `admin@agrotrack.com` / `admin123`
+- **Analytics (Grafana)**: `admin` / `admin123`
 
 ### 🔧 Local Development Setup
 
@@ -240,6 +263,39 @@ The system currently tracks:
 - **Humidity levels**: Continuous monitoring for optimal storage
 - **Alert frequency**: Active, critical, and resolved alert counts
 - **Reading statistics**: 24-hour reading counts and averages
+
+## 📈 Analytics & Monitoring (Grafana)
+
+### Pre-built Dashboards
+Access advanced analytics at **http://localhost:3001** with `admin` / `admin123`
+
+#### 🌾 **Silo Monitoring Dashboard**
+- **Real-time temperature trends** across all 5 Paraguay silos
+- **Humidity level monitoring** with threshold visualization
+- **Volume level gauges** with color-coded status indicators
+- **Historical trends** showing consumption and refill patterns
+- **Auto-refresh every 5 seconds** for live monitoring
+
+#### 🚨 **Alerts Analytics Dashboard**
+- **Active alerts counter** with critical alert highlighting
+- **Alert frequency charts** showing patterns by severity over time
+- **Alert type distribution** pie charts for the last 7 days
+- **Recent alerts table** with silo information and timestamps
+- **Resolution tracking** showing 24-hour alert handling performance
+
+#### 🚛 **Logistics Analytics Dashboard**
+- **Shipment status overview** with real-time counters
+- **Transportation metrics**: In transit, delivered today, delayed shipments
+- **Status distribution charts** showing logistics performance
+- **Daily activity trends** comparing departures vs arrivals
+- **Recent shipments table** with route and driver information
+
+### Advanced Features
+- **Custom time ranges**: Last hour, 6 hours, 24 hours, 7 days, 30 days
+- **Interactive charts**: Zoom, pan, and drill-down capabilities  
+- **Real-time updates**: Live data streaming every 5-30 seconds
+- **Multi-silo comparison**: Compare performance across Paraguay locations
+- **Threshold monitoring**: Visual indicators when values exceed limits
 
 ## 🔧 Configuration
 
