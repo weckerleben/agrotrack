@@ -1,0 +1,77 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: agrotrack
+      POSTGRES_USER: agrotrack
+      POSTGRES_PASSWORD: agrotrack123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agrotrack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_SERVER=db
+      - POSTGRES_USER=agrotrack
+      - POSTGRES_PASSWORD=agrotrack123
+      - POSTGRES_DB=agrotrack
+      - POSTGRES_PORT=5432
+      - SECRET_KEY=agrotrack-secret-key-change-in-production
+      - ENVIRONMENT=production
+      - DEBUG=false
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  # IoT Simulator
+  iot-simulator:
+    build:
+      context: ./iot-simulator
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - API_BASE_URL=http://backend:8000/api/v1
+      - SIMULATION_INTERVAL=10
+    depends_on:
+      - backend
+    volumes:
+      - ./iot-simulator:/app
+
+volumes:
+  postgres_data:
+  backend_uploads: 
