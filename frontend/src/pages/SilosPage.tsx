@@ -75,8 +75,8 @@ const SilosPage: React.FC = () => {
 
   const getVolumeStatus = (volume: string | number) => {
     const volumeNum = parseFloat(volume.toString())
-    if (volumeNum < 10) return 'text-red-600'
-    if (volumeNum < 25) return 'text-yellow-600'
+    if (volumeNum >= 90) return 'text-red-600'
+    if (volumeNum >= 75) return 'text-orange-600'
     return 'text-green-600'
   }
 
@@ -216,8 +216,8 @@ const SilosPage: React.FC = () => {
                             <div className="w-full bg-gray-200 rounded-full h-2">
                               <div 
                                 className={`h-2 rounded-full ${
-                                  parseFloat(silo.latest_reading.volume_percent.toString()) < 10 ? 'bg-red-500' :
-                                  parseFloat(silo.latest_reading.volume_percent.toString()) < 25 ? 'bg-yellow-500' : 'bg-green-500'
+                                  parseFloat(silo.latest_reading.volume_percent.toString()) >= 90 ? 'bg-red-500' :
+                                  parseFloat(silo.latest_reading.volume_percent.toString()) >= 75 ? 'bg-orange-500' : 'bg-green-500'
                                 }`}
                                 style={{ width: `${Math.min(parseFloat(silo.latest_reading.volume_percent.toString()), 100)}%` }}
                               ></div>

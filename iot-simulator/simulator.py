@@ -248,17 +248,41 @@ class AgroTrackIoTSimulator:
                 "threshold": max_humidity
             })
         
-        # Low volume alert
+        # Volume alerts - both low and high capacity
         if reading['volume_percent'] < 10:
+            # Low volume alert (empty silo)
             severity = "critical" if reading['volume_percent'] < 5 else "medium"
             alerts_to_create.append({
                 "silo_id": silo_id,
                 "alert_type": "volume",
                 "severity": severity,
                 "title": f"Low Volume in {silo_info['name']}",
-                "description": f"Volume {reading['volume_percent']}% is critically low",
+                "description": f"Volume {reading['volume_percent']}% is critically low - refill needed",
                 "value": reading['volume_percent'],
                 "threshold": 10.0
+            })
+        elif reading['volume_percent'] >= 90:
+            # High volume alert (full silo)
+            severity = "critical" if reading['volume_percent'] >= 95 else "high"
+            alerts_to_create.append({
+                "silo_id": silo_id,
+                "alert_type": "volume",
+                "severity": severity,
+                "title": f"High Capacity in {silo_info['name']}",
+                "description": f"Volume {reading['volume_percent']}% is very high - shipment needed",
+                "value": reading['volume_percent'],
+                "threshold": 90.0
+            })
+        elif reading['volume_percent'] >= 75:
+            # Medium-high volume alert (getting full)
+            alerts_to_create.append({
+                "silo_id": silo_id,
+                "alert_type": "volume",
+                "severity": "medium",
+                "title": f"High Capacity Warning in {silo_info['name']}",
+                "description": f"Volume {reading['volume_percent']}% is getting high - plan shipments",
+                "value": reading['volume_percent'],
+                "threshold": 75.0
             })
         
         # Send alerts

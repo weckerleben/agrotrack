@@ -261,16 +261,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 25
+                "color": "orange",
+                "value": 75
               },
               {
-                "color": "green",
-                "value": 50
+                "color": "red",
+                "value": 90
               }
             ]
           },
