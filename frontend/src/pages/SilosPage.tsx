@@ -57,23 +57,26 @@ const SilosPage: React.FC = () => {
     }
   }
 
-  const getTemperatureStatus = (temp: number, maxTemp: string | number) => {
+  const getTemperatureStatus = (temp: string | number, maxTemp: string | number) => {
+    const tempNum = parseFloat(temp.toString())
     const maxTempNum = parseFloat(maxTemp.toString())
-    if (temp > maxTempNum) return 'text-red-600'
-    if (temp > maxTempNum * 0.9) return 'text-yellow-600'
+    if (tempNum > maxTempNum) return 'text-red-600'
+    if (tempNum > maxTempNum * 0.9) return 'text-yellow-600'
     return 'text-green-600'
   }
 
-  const getHumidityStatus = (humidity: number, maxHumidity: string | number) => {
+  const getHumidityStatus = (humidity: string | number, maxHumidity: string | number) => {
+    const humidityNum = parseFloat(humidity.toString())
     const maxHumidityNum = parseFloat(maxHumidity.toString())
-    if (humidity > maxHumidityNum) return 'text-red-600'
-    if (humidity > maxHumidityNum * 0.9) return 'text-yellow-600'
+    if (humidityNum > maxHumidityNum) return 'text-red-600'
+    if (humidityNum > maxHumidityNum * 0.9) return 'text-yellow-600'
     return 'text-green-600'
   }
 
-  const getVolumeStatus = (volume: number) => {
-    if (volume < 10) return 'text-red-600'
-    if (volume < 25) return 'text-yellow-600'
+  const getVolumeStatus = (volume: string | number) => {
+    const volumeNum = parseFloat(volume.toString())
+    if (volumeNum < 10) return 'text-red-600'
+    if (volumeNum < 25) return 'text-yellow-600'
     return 'text-green-600'
   }
 
@@ -170,7 +173,7 @@ const SilosPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">Capacity</span>
-                  <span className="text-sm font-medium">{Number(silo.capacity_tons).toLocaleString()} tons</span>
+                  <span className="text-sm font-medium">{parseFloat(silo.capacity_tons.toString()).toLocaleString()} tons</span>
                 </div>
 
                 {silo.latest_reading && (
@@ -180,43 +183,43 @@ const SilosPage: React.FC = () => {
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div className="flex items-center">
-                          <Thermometer className={`h-4 w-4 mr-2 ${getTemperatureStatus(parseFloat(silo.latest_reading.temperature), silo.max_temperature)}`} />
+                          <Thermometer className={`h-4 w-4 mr-2 ${getTemperatureStatus(silo.latest_reading.temperature, silo.max_temperature)}`} />
                           <div>
-                            <div className={`text-sm font-medium ${getTemperatureStatus(parseFloat(silo.latest_reading.temperature), silo.max_temperature)}`}>
-                              {parseFloat(silo.latest_reading.temperature).toFixed(1)}°C
+                            <div className={`text-sm font-medium ${getTemperatureStatus(silo.latest_reading.temperature, silo.max_temperature)}`}>
+                              {parseFloat(silo.latest_reading.temperature.toString()).toFixed(1)}°C
                             </div>
                             <div className="text-xs text-gray-500">Temperature</div>
                           </div>
                         </div>
 
                         <div className="flex items-center">
-                          <Droplets className={`h-4 w-4 mr-2 ${getHumidityStatus(parseFloat(silo.latest_reading.humidity), silo.max_humidity)}`} />
+                          <Droplets className={`h-4 w-4 mr-2 ${getHumidityStatus(silo.latest_reading.humidity, silo.max_humidity)}`} />
                           <div>
-                            <div className={`text-sm font-medium ${getHumidityStatus(parseFloat(silo.latest_reading.humidity), silo.max_humidity)}`}>
-                              {parseFloat(silo.latest_reading.humidity).toFixed(1)}%
+                            <div className={`text-sm font-medium ${getHumidityStatus(silo.latest_reading.humidity, silo.max_humidity)}`}>
+                              {parseFloat(silo.latest_reading.humidity.toString()).toFixed(1)}%
                             </div>
                             <div className="text-xs text-gray-500">Humidity</div>
                           </div>
                         </div>
 
                         <div className="flex items-center col-span-2">
-                          <Package className={`h-4 w-4 mr-2 ${getVolumeStatus(parseFloat(silo.latest_reading.volume_percent))}`} />
+                          <Package className={`h-4 w-4 mr-2 ${getVolumeStatus(silo.latest_reading.volume_percent)}`} />
                           <div className="flex-1">
                             <div className="flex justify-between items-center mb-1">
-                              <span className={`text-sm font-medium ${getVolumeStatus(parseFloat(silo.latest_reading.volume_percent))}`}>
-                                {parseFloat(silo.latest_reading.volume_percent).toFixed(1)}%
+                              <span className={`text-sm font-medium ${getVolumeStatus(silo.latest_reading.volume_percent)}`}>
+                                {parseFloat(silo.latest_reading.volume_percent.toString()).toFixed(1)}%
                               </span>
                               <span className="text-xs text-gray-500">
-                                {parseFloat(silo.latest_reading.volume_tons).toFixed(0)} tons
+                                {parseFloat(silo.latest_reading.volume_tons.toString()).toFixed(0)} tons
                               </span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
                               <div 
                                 className={`h-2 rounded-full ${
-                                  parseFloat(silo.latest_reading.volume_percent) < 10 ? 'bg-red-500' :
-                                  parseFloat(silo.latest_reading.volume_percent) < 25 ? 'bg-yellow-500' : 'bg-green-500'
+                                  parseFloat(silo.latest_reading.volume_percent.toString()) < 10 ? 'bg-red-500' :
+                                  parseFloat(silo.latest_reading.volume_percent.toString()) < 25 ? 'bg-yellow-500' : 'bg-green-500'
                                 }`}
-                                style={{ width: `${Math.min(parseFloat(silo.latest_reading.volume_percent), 100)}%` }}
+                                style={{ width: `${Math.min(parseFloat(silo.latest_reading.volume_percent.toString()), 100)}%` }}
                               ></div>
                             </div>
                           </div>

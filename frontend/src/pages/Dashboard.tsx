@@ -4,7 +4,6 @@ import {
   Database, 
   AlertTriangle, 
   Truck, 
-  TrendingUp,
   Thermometer,
   Droplets,
   Activity

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Truck, Plus, MapPin, Calendar, Package, AlertTriangle, Clock, CheckCircle } from 'lucide-react'
+import { Truck, Plus, MapPin, Package, AlertTriangle, Clock, CheckCircle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import api from '../services/api'
 
