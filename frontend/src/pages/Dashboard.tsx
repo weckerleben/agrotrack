@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../services/api'
+import WeatherWidget from '../components/WeatherWidget'
 import { 
   Database, 
   AlertTriangle, 
@@ -157,6 +158,23 @@ const Dashboard: React.FC = () => {
             </div>
           )
         })}
+      </div>
+
+      {/* Weather Overview */}
+      <div className="card p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Weather Conditions</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          <WeatherWidget className="h-fit" />
+          <div className="lg:col-span-1 xl:col-span-2 flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <p className="text-sm mb-2">📍 Live weather data for all silo locations</p>
+              <p className="text-xs">Including agricultural insights like irrigation recommendations, disease risk, and growing degree days</p>
+              <a href="/weather" className="text-primary-600 hover:text-primary-700 text-sm font-medium mt-2 inline-block">
+                View Complete Weather Dashboard →
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Additional Info Cards */}

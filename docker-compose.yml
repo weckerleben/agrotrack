@@ -35,6 +35,7 @@ services:
       - SECRET_KEY=agrotrack-secret-key-change-in-production
       - ENVIRONMENT=production
       - DEBUG=false
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
     depends_on:
       db:
         condition: service_healthy

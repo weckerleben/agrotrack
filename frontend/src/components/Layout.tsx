@@ -11,7 +11,8 @@ import {
   LogOut,
   Menu,
   X,
-  Bell
+  Bell,
+  Cloud
 } from 'lucide-react'
 
 interface LayoutProps {
@@ -28,6 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Silos', href: '/silos', icon: Database },
     { name: 'Alerts', href: '/alerts', icon: AlertTriangle },
+    { name: 'Weather', href: '/weather', icon: Cloud },
     { name: 'Logistics', href: '/logistics', icon: Truck },
     ...(user?.role === 'admin' ? [{ name: 'Users', href: '/users', icon: Users }] : []),
   ]

@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import SilosPage from './pages/SilosPage'
 import SiloDetailPage from './pages/SiloDetailPage'
 import AlertsPage from './pages/AlertsPage'
+import WeatherPage from './pages/WeatherPage'
 import LogisticsPage from './pages/LogisticsPage'
 import UsersPage from './pages/UsersPage'
 import Layout from './components/Layout'
@@ -90,6 +91,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AlertsPage />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/weather" 
+              element={
+                <ProtectedRoute>
+                  <WeatherPage />
                 </ProtectedRoute>
               } 
             />

@@ -310,6 +310,27 @@ Key configurations:
 - `SECRET_KEY`: JWT signing secret (change in production!)
 - `ALLOWED_ORIGINS`: CORS origins for frontend access
 - `VITE_API_URL`: Frontend API endpoint configuration
+- `OPENWEATHER_API_KEY`: OpenWeatherMap API key for weather data
+
+### Weather API Setup
+1. **Get OpenWeatherMap API Key** (free tier available):
+   - Sign up at https://openweathermap.org/api
+   - Subscribe to "Current Weather Data" (free for 1000 calls/day)
+   - Copy your API key
+
+2. **Configure the API key**:
+   ```bash
+   # In your .env file
+   OPENWEATHER_API_KEY=your_actual_api_key_here
+   ```
+
+3. **Weather features include**:
+   - Real-time weather for all silo locations in Paraguay
+   - Agricultural metrics (Growing Degree Days, Heat Index, Evapotranspiration)
+   - Disease pressure risk assessment
+   - Irrigation recommendations
+   - Frost warnings
+   - 5-day weather forecasts
 
 ### Database
 - **Automatic initialization** with sample data
