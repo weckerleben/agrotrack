@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Database, Plus, MapPin, Thermometer, Droplets, Package, AlertTriangle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import api from '../services/api'
+import AddSiloModal from '../components/AddSiloModal'
 
 interface Silo {
   id: number
@@ -29,6 +30,7 @@ const SilosPage: React.FC = () => {
   const [silos, setSilos] = useState<Silo[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   useEffect(() => {
     fetchSilos()
@@ -46,6 +48,20 @@ const SilosPage: React.FC = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleAddSilo = () => {
+    console.log('Add Silo button clicked!')
+    alert('Add Silo button was clicked!')
+    setIsAddModalOpen(true)
+  }
+
+  const handleModalClose = () => {
+    setIsAddModalOpen(false)
+  }
+
+  const handleSiloAdded = () => {
+    fetchSilos() // Refresh the silos list
   }
 
   const getStatusColor = (status: string) => {
@@ -136,7 +152,10 @@ const SilosPage: React.FC = () => {
           </p>
         </div>
         {(user?.role === 'admin' || user?.role === 'operator') && (
-          <button className="btn-primary">
+          <button 
+            onClick={handleAddSilo}
+            className="btn-primary"
+          >
             <Plus className="h-4 w-4 mr-2" />
             Add Silo
           </button>
@@ -148,9 +167,18 @@ const SilosPage: React.FC = () => {
           <div className="text-center py-12">
             <Database className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No Silos Found</h3>
-            <p className="text-gray-500">
+            <p className="text-gray-500 mb-4">
               No storage facilities have been configured yet.
             </p>
+            {(user?.role === 'admin' || user?.role === 'operator') && (
+              <button 
+                onClick={handleAddSilo}
+                className="btn-primary"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Your First Silo
+              </button>
+            )}
           </div>
         </div>
       ) : (
@@ -252,6 +280,13 @@ const SilosPage: React.FC = () => {
           ))}
         </div>
       )}
+
+      {/* Add Silo Modal */}
+      <AddSiloModal
+        isOpen={isAddModalOpen}
+        onClose={handleModalClose}
+        onSiloAdded={handleSiloAdded}
+      />
     </div>
   )
 }
