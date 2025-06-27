@@ -362,6 +362,12 @@ Key configurations:
    - Verify backend API is accessible
    - Look for 422 errors indicating data format issues
 
+5. **Frontend Docker Container Won't Start**
+   - TypeScript compilation errors prevent container startup
+   - Fix unused imports: `TrendingUp` in Dashboard.tsx, `Calendar` in LogisticsPage.tsx
+   - Resolve type conflicts in SilosPage.tsx (string/number mismatches)
+   - Run `npm run build` locally to identify all compilation errors
+
 ### Logs and Debugging
 ```bash
 # View all service logs

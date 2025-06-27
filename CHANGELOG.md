@@ -73,9 +73,28 @@ All notable changes to the AgroTrack project are documented in this file.
   - FastAPI backend container
   - React frontend container
   - IoT simulator container
+  - pgAdmin container for database administration
+  - Grafana container for advanced analytics
 - **Health checks** and volume management
 - **Environment variable** configuration
 - **Network isolation** and communication
+
+#### Analytics & Administration
+- **Grafana integration** with 3 pre-built dashboards:
+  - Silo Monitoring Dashboard (real-time trends, volume gauges)
+  - Alerts Analytics Dashboard (frequency analysis, severity tracking)  
+  - Logistics Analytics Dashboard (shipment performance, route efficiency)
+- **pgAdmin integration** for web-based PostgreSQL administration
+- **Real-time data visualization** with auto-refresh capabilities
+- **Historical data analysis** with customizable time ranges
+
+#### Weather Service Integration
+- **OpenWeatherMap API** integration for real-time weather data
+- **Agricultural weather metrics**: Growing Degree Days, Heat Index, Evapotranspiration
+- **Multi-location weather** for all Paraguay silo locations
+- **Disease pressure assessment** and irrigation recommendations
+- **5-day weather forecasts** with agricultural focus
+- **Weather API endpoints** for current conditions and forecasts
 
 ### 🛠️ Technical Achievements
 
@@ -168,6 +187,9 @@ All notable changes to the AgroTrack project are documented in this file.
 - **Basic alert resolution** (manual only)
 - **Limited historical analytics** (24-hour window)
 - **Development security settings** (need production hardening)
+- **Frontend Docker build issues**: TypeScript compilation errors prevent container startup
+  - Unused import errors in Dashboard.tsx and LogisticsPage.tsx
+  - Type conflicts in SilosPage.tsx requiring manual fixes
 
 ### 🚀 Future Enhancements
 

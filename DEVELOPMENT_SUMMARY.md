@@ -47,6 +47,24 @@ This document summarizes the complete AgroTrack smart agricultural monitoring pl
 - **Multi-container architecture** with health checks
 - **Environment configuration** with example files
 - **Volume management** for data persistence
+- **pgAdmin integration** for web-based database administration
+- **Grafana analytics** with pre-built monitoring dashboards
+
+### ✅ Analytics & Administration
+- **Grafana dashboards** with 3 pre-configured monitoring views:
+  - **Silo Monitoring Dashboard**: Real-time temperature/humidity trends, volume gauges
+  - **Alerts Analytics Dashboard**: Alert frequency analysis, severity tracking
+  - **Logistics Analytics Dashboard**: Shipment performance, route efficiency
+- **pgAdmin interface** for PostgreSQL database management
+- **Real-time data visualization** with 5-30 second refresh rates
+- **Historical data analysis** with customizable time ranges
+
+### ✅ Weather Service Integration
+- **OpenWeatherMap API** integration for real-time weather data
+- **Agricultural metrics**: Growing Degree Days, Heat Index, Evapotranspiration
+- **Disease pressure assessment** and irrigation recommendations
+- **Multi-location weather** for all Paraguay silo locations
+- **5-day weather forecasts** with agricultural focus
 
 ## 🏛️ System Architecture
 
@@ -56,12 +74,18 @@ This document summarizes the complete AgroTrack smart agricultural monitoring pl
 │                 │────│                 │────│                 │
 │ Python asyncio  │    │ REST API + JWT  │    │ 5 Paraguay Silos│
 └─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │
-                       ┌─────────────────┐
-                       │ React Frontend  │
-                       │                 │
-                       │ TypeScript + UI │
-                       └─────────────────┘
+                                │                       │
+                       ┌─────────────────┐              │
+                       │ React Frontend  │              │
+                       │                 │              │
+                       │ TypeScript + UI │              │
+                       └─────────────────┘              │
+                                                        │
+                       ┌─────────────────┐    ┌─────────────────┐
+                       │ pgAdmin Interface│    │ Grafana Analytics│
+                       │                 │────│                 │
+                       │ DB Management   │    │ Monitoring + Charts│
+                       └─────────────────┘    └─────────────────┘
 ```
 
 ## 📊 Current Operational Status
@@ -111,6 +135,10 @@ Logistics:
 
 Dashboard:
 - GET /api/v1/dashboard/kpis/
+
+Weather:
+- GET /api/v1/weather/{silo_id}
+- GET /api/v1/weather/{silo_id}/forecast
 ```
 
 ### Database Schema
@@ -173,6 +201,8 @@ src/
 - **Backend API**: http://localhost:8000
 - **API Docs**: http://localhost:8000/docs
 - **Database**: localhost:5432
+- **pgAdmin**: http://localhost:5050
+- **Grafana Analytics**: http://localhost:3001
 
 ### Default Credentials
 - **Admin**: admin@agrotrack.com / admin123
@@ -225,7 +255,14 @@ src/
 ✅ **Docker deployment** - Full containerization  
 ✅ **Error handling** - Proper error responses and logging  
 
+### Known Issues
+❌ **Frontend Docker Build**: TypeScript compilation errors prevent frontend container startup:
+- Unused imports: `TrendingUp` in Dashboard.tsx, `Calendar` in LogisticsPage.tsx  
+- Type conflicts in SilosPage.tsx: string/number type mismatches
+- Manual TypeScript error fixes needed for Docker deployment
+
 ### Production Checklist
+- [ ] **Fix TypeScript compilation errors** for Docker deployment
 - [ ] Change default passwords and secret keys
 - [ ] Configure production database
 - [ ] Set up SSL/TLS certificates  
